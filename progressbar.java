@@ -31,7 +31,7 @@ class Main {
         String course = cin.nextLine();
         System.out.print("In what school are you taking " + course + ": ");
         String school = cin.nextLine();
-        System.out.print("What year are you expected to complete your coursework:");
+        System.out.print("What year are you expected to complete your coursework: ");
         String year = cin.nextLine();
         
         System.out.println();
@@ -52,9 +52,13 @@ class Main {
     }
     System.out.println("\nReport Compiled successfully!");
     System.out.println();
-    System.out.println("Select what to find out about the client:\n1.Full Name\n2. Course\n3. Age\n4. Year of Birth\n5. School\n6. Year of Graduation.");
-    int choice = cin.nextInt();
+    int choice;
+    do {
+    System.out.println("Select what to find out about the client:\n1.Full Name\n2. Course\n3. Age\n4. Year of Birth\n5. School\n6. Year of Graduation.\n7. Exit");
+    System.out.print("Enter Your Choice (1 to 7) : ");
+    choice = cin.nextInt();
     cin.nextLine();
+    System.out.println();
 
     switch (choice) {
         case 1: System.out.println(name + ".");
@@ -69,10 +73,16 @@ class Main {
             break;
         case 6: System.out.println(name + " is expected to graduate in " + year);
             break;
-        default: System.out.println("Invalid Choice.");
+        case 7: System.out.println("Have a nice Day!\n");
+            break;
+        default: System.out.println("Invalid Choice.\n");
             break;
             
     }
+    System.out.println();
+} while (
+    choice != 7
+);
     cin.close();
 }
 
