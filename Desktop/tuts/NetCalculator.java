@@ -5,7 +5,7 @@ public class NetCalculator {
     }
        public int hostbits (int hostsreq) {
         
-        return (int)(Math.log(hostsreq)/Math.log(2));
+        return (int)(Math.log(hostsreq + 2)/Math.log(2));
     }
 
    public int getIncrement (int hostbits) {
