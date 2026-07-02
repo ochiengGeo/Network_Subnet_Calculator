@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class trial_subnetmask {
     public static void main (String[] args) {
-        int octet4 = 0, octet3 = 0, octet2 = 0, octet1 = 0;
+        int octet4 = 255, octet3 = 255, octet2 = 255, octet1 = 255;
         System.out.print("Enter the Number of hostbits: ");
         Scanner cin = new Scanner(System.in);
         int hostbits = cin.nextInt();
@@ -10,32 +10,28 @@ public class trial_subnetmask {
 
         //4th octet
         if (hostbits <= 8) {
-            octet3 = 255;
-            octet4 = 255;
-            octet2 = 255;
-            octet1 = 255 - (int)Math.pow(2, hostbits - 1);
-            if (hostbits == 8) {
-                octet1 = 0;
-            }
+        for (int j = 1; j <= hostbits; j++) {
+            octet1 -= Math.pow(2, j - 1);
         }
+}
         
         //3rd Octet
         else if (hostbits > 8 && hostbits <= 16) {
-            octet3 = 255;
-            octet4 = 255;
-            octet2 = 255 - (int)Math.pow(2, hostbits -8 -1);
-            if (hostbits == 16) {
-                octet2 = 0;
-            }
+            int temp = hostbits - 8;
+        for (int j = 1; j <= temp; j++) {
+            octet2 -= Math.pow(2, j - 1);
+        }
+        octet1 = 0;
         }
 
         //2nd Octet
         else if (hostbits > 16 && hostbits <= 24) {
-            octet4 = 255;
-            octet3 = 255 - (int)Math.pow(2, hostbits - 16 -1);
-            if (hostbits == 24) {
-                octet3 = 0;
-            }
+            int temp = hostbits - 8;
+        for (int j = 1; j <= temp; j++) {
+            octet2 -= Math.pow(2, j - 1);
+        }
+        octet1 = 0;
+        octet2 = 0;
         }
 
         else {
