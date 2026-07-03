@@ -26,7 +26,7 @@ public class ip_inclusion {
         while (true);
 
         if (choice == 2) {
-            System.out.println("Complete the ip address to match yours :");
+            System.out.println("\nComplete the ip address to match yours :");
             System.out.print("192.168.");
             do {
                 if (cin.hasNextDouble()) {
@@ -50,7 +50,35 @@ public class ip_inclusion {
                 }
             } 
             while(true);
-            System.out.println("Hooray! The ip address is : 192.168." + octet2 + "." + octet1);
+            System.out.println("Hooray! The ip address is : 192.168." + octet2 + "." + octet1 + "\n");
+        }
+
+        else {
+            System.out.println("\nComplete the ip address to match yours :");
+            System.out.print("172.16.");
+            do {
+                if (cin.hasNextDouble()) {
+                    last2octets = cin.nextDouble();
+                    octet2 = (int) last2octets;
+                    octet1 = (int)(last2octets * 100) % 100;
+                    if ((octet2 > 255 || octet1 > 255) || octet2 < 0) {
+                        System.out.println("Invalid Address!\n");
+                        System.out.println("Complete the ip address to match yours :");
+                        System.out.print("172.16.");
+                    }
+                    else{
+                        break;
+                    }
+                }
+                else {
+                    cin.next();
+                    System.out.println("Invalid Address!\n");
+                    System.out.println("Complete the ip address to match yours :");
+                    System.out.print("172.16.");
+                }
+            } 
+            while(true);
+            System.out.println("Hooray! The ip address is : 172.16." + octet2 + "." + octet1 + "\n");
         }
         
         cin.close();
