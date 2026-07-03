@@ -10,7 +10,7 @@ public class Main {
         int mode;
 
         do {
-        System.out.println("Choose the calculation Mode(1 or 2): ");
+        System.out.print("Choose the calculation Mode(1 or 2): ");
         mode = cin.nextInt();
         cin.nextLine();
 
@@ -19,19 +19,20 @@ public class Main {
         }
         } while (mode != 1 && mode != 2);
 
-        if (mode == 1) {
-            System.out.println("Enter the number of hosts required : ");
+        if (mode == 2) {
+            System.out.print("Enter the number of hosts required : ");
             int hostsreq = cin.nextInt();
             cin.nextLine();
 
             NetCalculator calc = new NetCalculator();
 
             System.out.println();
-            System.out.println("Analysis");
+            System.out.println("Analysis For Network : \n");
             System.out.println((256 / calc.getIncrement(calc.hostbits(hostsreq))) +" Subnets on the Network.");
             System.out.println("Your Network Would have "+calc.getIncrement(calc.hostbits(hostsreq)) + " per subnet.");
             System.out.println("CIDR: /" +calc.cidr(calc.hostbits(hostsreq)));
             System.out.println("Capacity in each Subnet : " + calc.getIncrement(calc.hostbits(hostsreq)));
+            System.out.println("Subnet Mask : " +calc.getSubnetMask(calc.hostbits(hostsreq)));
         }
        
         cin.close();
