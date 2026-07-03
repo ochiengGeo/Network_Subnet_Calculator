@@ -26,20 +26,25 @@ public class trial_subnetmask {
 
         //2nd Octet
         else if (hostbits > 16 && hostbits <= 24) {
-            int temp = hostbits - 8;
+            int temp = hostbits - 16;
         for (int j = 1; j <= temp; j++) {
-            octet2 -= Math.pow(2, j - 1);
+            octet3 -= Math.pow(2, j - 1);
         }
         octet1 = 0;
         octet2 = 0;
         }
 
         else {
-            octet4 = 255 - (int)Math.pow(2, hostbits - 24 -1);
-            if (hostbits == 32) {
-                octet4 = 0;
-            }
+            //1st octet
+            int temp = hostbits - 24;
+            for (int j = 1; j <= temp; j++) {
+            octet4 -= (int)Math.pow(2, j -1);
+
         }
+        octet3 = 0;
+        octet2 = 0;
+        octet1 = 0;
+    }
         System.out.println("Subnet Mask: " + octet4+ "." +octet3+ "." +octet2+ "." +octet1);
 
         cin.close();
