@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main (String [] args) {
+        NetCalculator calc = new NetCalculator();
         Scanner cin = new Scanner(System.in);
         System.out.println("\n1. Network Requirement.\n2. Host Requirements.");
         int mode;
@@ -55,6 +56,9 @@ public class Main {
         while (true);
 
         if (choice == 2) {
+            System.out.print("Enter the CIDR of your network: ");
+            int cidr = cin.nextInt(); //fix the input buffer🔴
+            
             System.out.println("\nComplete the ip address to match your Network Address :");
             System.out.print("192.168.");
             do {
@@ -62,8 +66,8 @@ public class Main {
                     last2octets = cin.nextDouble();
                     ipoctet2 = (int) last2octets;
                     ipoctet1 = (int)(last2octets * 100) % 100;
-                    if ((ipoctet2 > 255 || ipoctet1 > 255) || ipoctet2 < 0) {
-                        System.out.println("Invalid Address!\n");
+                    if ((ipoctet2 > 255 || ipoctet1 > 255) || ipoctet2 < 0 || !calc.isValidNetwork(cidr, ipoctet2, ipoctet1)) {
+                        System.out.println("Invalid Network Address!\n");
                         System.out.println("Complete the ip address to match your Network Address :");
                         System.out.print("192.168.");
                     }
@@ -73,16 +77,28 @@ public class Main {
                 }
                 else {
                     cin.next();
-                    System.out.println("Invalid Address!\n");
+                    System.out.println("Invalid Network Address!\n");
                     System.out.println("Complete the ip address to match your Network Address :");
                     System.out.print("192.168.");
                 }
             } 
             while(true);
-            System.out.println("Hooray! The ip address is : 192.168." + ipoctet2 + "." + ipoctet1 + "\n");
-        }
+            //👇After successful octet input for Class C
+            System.out.print("Enter the number of hosts required for the Network " + "192.168." +ipoctet2+"." +ipoctet1+ " : ");
+            int hostsreq = cin.nextInt();
+            System.out.println();
+            System.out.println("Analysis For Network - 192.168." +ipoctet2+ "." +ipoctet1 + " : \n");
+            System.out.println("CIDR: /" +calc.cidr(calc.hostbits(hostsreq)));
+            System.out.println("Total Usable IP addresses: " + (calc.getIncrement(calc.hostbits(hostsreq)) - 2));
+            System.out.println("Subnet Mask : " +calc.getSubnetMask(calc.hostbits(hostsreq)));
+            calc.displayNetworkRanges(cidr, ipoctet2, ipoctet1);
+            System.out.println();        }
 
         else {
+
+            System.out.println("Enter the CIDR of your network: ");
+            int cidr = cin.nextInt();
+
             System.out.println("\nComplete the ip address to match your Network Address :");
             System.out.print("172.16.");
             do {
@@ -90,8 +106,8 @@ public class Main {
                     last2octets = cin.nextDouble();
                     ipoctet2 = (int) last2octets;
                     ipoctet1 = (int)(last2octets * 100) % 100;
-                    if ((ipoctet2 > 255 || ipoctet1 > 255) || ipoctet2 < 0) {
-                        System.out.println("Invalid Address!\n");
+                    if ((ipoctet2 > 255 || ipoctet1 > 255) || ipoctet2 < 0 || !calc.isValidNetwork(cidr, ipoctet2, ipoctet1)) {
+                        System.out.println("Invalid Network Address!\n");
                         System.out.println("Complete the ip address to match your Network Address :");
                         System.out.print("172.16.");
                     }
@@ -101,23 +117,34 @@ public class Main {
                 }
                 else {
                     cin.next();
-                    System.out.println("Invalid Address!\n");
+                    System.out.println("Invalid Network Address!\n");
                     System.out.println("Complete the ip address to match your Network Address :");
                     System.out.print("172.16.");
                 }
             } 
             while(true);
-            System.out.println("Hooray! The ip address is : 172.16." + ipoctet2 + "." + ipoctet1 + "\n");
+            //👇Successful octet input Class B
+         //   System.out.println("Hooray! The ip address is : 172.16." + ipoctet2 + "." + ipoctet1 + "\n");
+            System.out.print("Enter the number of hosts required for the Network " + "172.16." +ipoctet2+"." +ipoctet1+ " : ");
+            int hostsreq = cin.nextInt();
+            cin.nextLine();
+
+
+            System.out.println();
+            System.out.println("Analysis For Network - 172.16." +ipoctet2+ "." +ipoctet1 + " : \n");
+            System.out.println("CIDR: /" +calc.cidr(calc.hostbits(hostsreq)));
+            System.out.println("Total Usable IP addresses: " + (calc.getIncrement(calc.hostbits(hostsreq)) - 2));
+            System.out.println("Subnet Mask : " +calc.getSubnetMask(calc.hostbits(hostsreq)));
+            calc.displayNetworkRanges(cidr, ipoctet2, ipoctet1);
+            System.out.println();
         }
         
-        cin.close();
         }
             else {
             System.out.print("Enter the number of hosts required : ");
             int hostsreq = cin.nextInt();
             cin.nextLine();
 
-            NetCalculator calc = new NetCalculator();
 
             System.out.println();
             System.out.println("Analysis For Network : \n");
